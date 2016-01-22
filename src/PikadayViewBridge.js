@@ -1,13 +1,16 @@
 var pikadayBridge = function (presenterPath) {
-    window.gcd.core.mvp.viewBridgeClasses.HtmlViewBridge.apply(this, arguments);
+    window.rhubarb.viewBridgeClasses.HtmlViewBridge.apply(this, arguments);
 };
 
-pikadayBridge.prototype = new window.gcd.core.mvp.viewBridgeClasses.HtmlViewBridge();
-pikadayBridge.prototype.constructor = datePicker;
+pikadayBridge.prototype = new window.rhubarb.viewBridgeClasses.HtmlViewBridge();
+pikadayBridge.prototype.constructor = pikadayBridge;
 
 pikadayBridge.prototype.attachEvents = function () {
+    var self = this;
+
     this.picker = new Pikaday({
-        field: this.node,
+        field: this.viewNode,
+        format: 'DD/MM/YYYY',
         onSelect: function () {
             self.valueChanged();
         }
@@ -28,4 +31,4 @@ pikadayBridge.prototype.setDate = function (date) {
     this.valueChanged();
 };
 
-window.gcd.core.mvp.viewBridgeClasses.PikadayViewBridge = pikadayBridge;
+window.rhubarb.viewBridgeClasses.PikadayViewBridge = pikadayBridge;

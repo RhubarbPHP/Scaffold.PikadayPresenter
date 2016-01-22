@@ -19,6 +19,7 @@
   "require": {
     "rhubarbphp/rhubarb": "*",
     "rhubarbphp/module-leaf": "*",
-    "webmodules/pikaday": "^1.3"
+    "webmodules/pikaday": "^1.3",
+    "webmodules/moment": "^2.10"
   }
 }

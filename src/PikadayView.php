@@ -17,9 +17,10 @@ class PikadayView extends TextBoxView
     {
         $package = parent::getDeploymentPackage();
         if ($this->useDefaultCss) {
-            $package->resourcesToDeploy[] = __DIR__ . '/../vendor/webmodules/pikaday/css/pikaday.css';
+            $package->resourcesToDeploy[] = __DIR__ . '/../../../webmodules/pikaday/css/pikaday.css';
         }
-        $package->resourcesToDeploy[] = __DIR__ . '/../vendor/webmodules/pikaday/pikaday.js';
+        $package->resourcesToDeploy[] = __DIR__ . '/../../../webmodules/moment/min/moment.min.js';
+        $package->resourcesToDeploy[] = __DIR__ . '/../../../webmodules/pikaday/pikaday.js';
         $package->resourcesToDeploy[] = __DIR__ . '/PikadayViewBridge.js';
 
         return $package;
