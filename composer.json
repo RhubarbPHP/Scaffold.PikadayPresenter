@@ -1,0 +1,24 @@
+{
+  "name": "rhubarbphp/scaffold-pikaday-presenter",
+  "description": "Provides a presenter for picking dates with the Pikaday javascript library.",
+  "keywords": [
+    "rhubarb",
+    "php",
+    "date",
+    "datepicker",
+    "pikaday",
+    "javascript"
+  ],
+  "homepage": "http://www.rhubarbphp.com/",
+  "license": "Apache-2.0",
+  "autoload": {
+    "psr-4": {
+      "Rhubarb\\PikadayPresenter\\": "src/"
+    }
+  },
+  "require": {
+    "rhubarbphp/rhubarb": "*",
+    "rhubarbphp/module-leaf": "*",
+    "webmodules/pikaday": "^1.3"
+  }
+}
