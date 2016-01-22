@@ -20,7 +20,7 @@ class PikadayView extends TextBoxView
             $package->resourcesToDeploy[] = __DIR__ . '/../../../webmodules/pikaday/css/pikaday.css';
         }
         $package->resourcesToDeploy[] = __DIR__ . '/../../../../components/moment/min/moment.min.js';
-        $package->resourcesToDeploy[] = __DIR__ . '/../../../webmodules/pikaday/pikaday.js';
+        $package->resourcesToDeploy[] = __DIR__ . '/../../../rhubarbphp/pikaday/pikaday.js';
         $package->resourcesToDeploy[] = __DIR__ . '/PikadayViewBridge.js';
 
         return $package;
