@@ -18,7 +18,7 @@ pikadayBridge.prototype.attachEvents = function () {
 };
 
 pikadayBridge.prototype.getDate = function () {
-    var date = picker.getDate();
+    var date = this.picker.getDate();
 
     var d = new Date(date.getFullYear(), date.getMonth(), date.getDate());
     d.setTime(d.getTime() + (-date.getTimezoneOffset() * 60 * 1000));
