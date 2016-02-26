@@ -8,6 +8,8 @@ pikadayBridge.prototype.constructor = pikadayBridge;
 pikadayBridge.prototype.attachEvents = function () {
     var self = this;
 
+    this.dateFormat = 'DD/MM/YYYY';
+
     this.hiddenNode = null;
     for (var i = 0, childNodes = this.viewNode.childNodes; i < childNodes.length; i++) {
         if (childNodes[i].nodeType == document.ELEMENT_NODE && childNodes[i].tagName == 'INPUT' && childNodes[i].type == 'hidden') {
@@ -19,10 +21,10 @@ pikadayBridge.prototype.attachEvents = function () {
 
     this.picker = new Pikaday({
         field: this.viewNode,
-        format: 'DD/MM/YYYY',
+        format: this.dateFormat,
         onSelect: function (date) {
             if (self.hiddenNode) {
-                var dateString = moment(date).format('DD/MM/YYYY');
+                var dateString = moment(date).format(self.dateFormat);
                 self.hiddenNode.value = dateString;
                 self.textNode.nodeValue = dateString;
             }
@@ -49,6 +51,10 @@ pikadayBridge.prototype.setValue = function (value) {
 
 pikadayBridge.prototype.getDate = function () {
     var date = this.picker.getDate();
+
+    if (date == null) {
+        date = moment(this.getValue(), this.dateFormat).toDate();
+    }
 
     var d = new Date(date.getFullYear(), date.getMonth(), date.getDate());
     d.setTime(d.getTime() + (-date.getTimezoneOffset() * 60 * 1000));
