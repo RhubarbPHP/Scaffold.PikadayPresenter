@@ -2,31 +2,26 @@
 
 namespace Rhubarb\PikadayPresenter;
 
-use Rhubarb\Leaf\Presenters\Controls\Text\TextBox\TextBoxView;
+use Rhubarb\Leaf\Controls\Common\Text\TextBoxView;
+use Rhubarb\Leaf\Leaves\LeafDeploymentPackage;
 
+/**
+ * @property PikadayModel $model
+ */
 class PikadayView extends TextBoxView
 {
-    public $useDefaultCss = true;
-    protected $mode;
-
-    public function __construct($mode)
-    {
-        parent::__construct('text');
-        $this->mode = $mode;
-    }
-
     public function printViewContent()
     {
-        if ($this->mode == PikadayPresenter::MODE_TEXT_INPUT) {
+        if ($this->model->mode == PikadayModel::MODE_TEXT_INPUT) {
             parent::printViewContent();
             return;
         }
 
-        print '<span id="' . htmlentities($this->getIndexedPresenterPath()) . '" ' .
-                'presenter-name="' . htmlentities($this->presenterName) . '"' .
-                $this->getHtmlAttributeTags() . $this->getClassTag() . '>' .
-            '<input type="hidden" name="' . htmlentities($this->getIndexedPresenterPath()) . '" value="' . htmlentities($this->text) . '">' .
-            htmlentities($this->text) .
+        print '<span id="' . htmlentities($this->model->leafPath) . '" ' .
+                'leaf-name="' . htmlentities($this->model->leafName) . '"' .
+                $this->model->getHtmlAttributes() . $this->model->getClassAttribute() . '>' .
+            '<input type="hidden" name="' . htmlentities($this->model->leafPath) . '" value="' . htmlentities($this->model->value) . '">' .
+            htmlentities($this->model->value) .
             '</span>';
     }
 
@@ -37,13 +32,16 @@ class PikadayView extends TextBoxView
 
     public function getDeploymentPackage()
     {
+        /** @var LeafDeploymentPackage $package */
         $package = parent::getDeploymentPackage();
-        if ($this->useDefaultCss) {
-            $package->resourcesToDeploy[] = __DIR__ . '/../../../rhubarbphp/pikaday/css/pikaday.css';
-        }
+
         $package->resourcesToDeploy[] = __DIR__ . '/../../../../components/moment/min/moment.min.js';
         $package->resourcesToDeploy[] = __DIR__ . '/../../../rhubarbphp/pikaday/pikaday.js';
         $package->resourcesToDeploy[] = __DIR__ . '/PikadayViewBridge.js';
+
+        if ($this->model->useDefaultCss) {
+            $package->resourcesToDeploy[] = __DIR__ . '/../../../rhubarbphp/pikaday/css/pikaday.css';
+        }
 
         return $package;
     }

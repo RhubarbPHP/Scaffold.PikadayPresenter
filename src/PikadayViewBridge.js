@@ -1,8 +1,8 @@
 var pikadayBridge = function (presenterPath) {
-    window.rhubarb.viewBridgeClasses.HtmlViewBridge.apply(this, arguments);
+    window.rhubarb.viewBridgeClasses.ViewBridge.apply(this, arguments);
 };
 
-pikadayBridge.prototype = new window.rhubarb.viewBridgeClasses.HtmlViewBridge();
+pikadayBridge.prototype = new window.rhubarb.viewBridgeClasses.ViewBridge();
 pikadayBridge.prototype.constructor = pikadayBridge;
 
 pikadayBridge.prototype.attachEvents = function () {
@@ -38,7 +38,7 @@ pikadayBridge.prototype.getValue = function () {
         return this.hiddenNode.value;
     }
 
-    return window.rhubarb.viewBridgeClasses.HtmlViewBridge.prototype.getValue.apply(this);
+    return window.rhubarb.viewBridgeClasses.ViewBridge.prototype.getValue.apply(this);
 };
 
 pikadayBridge.prototype.setValue = function (value) {
@@ -46,7 +46,7 @@ pikadayBridge.prototype.setValue = function (value) {
         this.hiddenNode.value = value;
     }
 
-    return window.rhubarb.viewBridgeClasses.HtmlViewBridge.prototype.setValue.apply(this, arguments);
+    return window.rhubarb.viewBridgeClasses.ViewBridge.prototype.setValue.apply(this, arguments);
 };
 
 pikadayBridge.prototype.getDate = function () {
