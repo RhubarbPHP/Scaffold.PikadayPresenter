@@ -10,6 +10,17 @@ use Rhubarb\Leaf\Controls\Common\DateTime\Date;
  */
 class Pikaday extends Date
 {
+    /**
+     * @param string $name Leaf name
+     * @param int $mode One of the PikadayModel::MODE_* constants
+     */
+    public function __construct($name = "", $mode = PikadayModel::MODE_TEXT_INPUT)
+    {
+        parent::__construct($name);
+
+        $this->model->mode = $mode;
+    }
+
     public function enableDefaultCss()
     {
         $this->model->useDefaultCss = true;

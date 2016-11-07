@@ -13,4 +13,11 @@ class PikadayModel extends ControlModel
     public $mode = self::MODE_TEXT_INPUT;
 
     public $useDefaultCss = true;
+
+    protected function getExposableModelProperties()
+    {
+        $properties = parent::getExposableModelProperties();
+        $properties[] = 'mode';
+        return $properties;
+    }
 }

@@ -5,6 +5,12 @@ var pikadayBridge = function (presenterPath) {
 pikadayBridge.prototype = new window.rhubarb.viewBridgeClasses.ViewBridge();
 pikadayBridge.prototype.constructor = pikadayBridge;
 
+pikadayBridge.prototype.modes = {
+    textInput: 1,
+    label: 2,
+    calendar: 3
+};
+
 pikadayBridge.prototype.attachEvents = function () {
     var self = this;
 
@@ -19,18 +25,29 @@ pikadayBridge.prototype.attachEvents = function () {
         }
     }
 
-    this.picker = new Pikaday({
-        field: this.viewNode,
-        format: this.dateFormat,
-        onSelect: function (date) {
-            if (self.hiddenNode) {
+    var options = {format: this.dateFormat};
+
+    switch (this.model.mode) {
+        case this.modes.label:
+            options.field = this.viewNode;
+            options.onSelect = function (date) {
                 var dateString = moment(date).format(self.dateFormat);
                 self.hiddenNode.value = dateString;
                 self.textNode.nodeValue = dateString;
-            }
-            self.valueChanged();
-        }
-    });
+                self.valueChanged();
+            };
+            break;
+        case this.modes.calendar:
+            options.field = self.hiddenNode;
+            options.bound = false;
+            options.container = this.viewNode;
+            break;
+        default:
+            options.field = this.viewNode;
+            break;
+    }
+
+    this.picker = new Pikaday(options);
 };
 
 pikadayBridge.prototype.getValue = function () {
@@ -50,7 +67,7 @@ pikadayBridge.prototype.setValue = function (value) {
 };
 
 pikadayBridge.prototype.getDate = function () {
-    var date = this.picker.getDate();
+    var date = this.picker ? this.picker.getDate() : null;
 
     if (date == null) {
         date = moment(this.getValue(), this.dateFormat).toDate();

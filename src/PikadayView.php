@@ -10,22 +10,44 @@ use Rhubarb\Leaf\Leaves\LeafDeploymentPackage;
  */
 class PikadayView extends TextBoxView
 {
+    protected $requiresStateInput = true;
+
     public function printViewContent()
     {
-        if ($this->model->mode == PikadayModel::MODE_TEXT_INPUT) {
-            parent::printViewContent();
-            return;
-        }
+        switch ($this->model->mode) {
+            case PikadayModel::MODE_TEXT_INPUT:
+                parent::printViewContent();
+                return;
+            case PikadayModel::MODE_CALENDAR:
+                print '<div id="' . htmlentities($this->model->leafPath) . '" ' .
+                    'leaf-name="' . htmlentities($this->model->leafName) . '"' .
+                    $this->model->getHtmlAttributes() . $this->model->getClassAttribute() . '>' .
+                    '<input type="hidden" name="' . htmlentities($this->model->leafPath) . '" value="' . $this->getFormattedValue() . '">' .
+                    '</div>';
+                return;
 
-        print '<span id="' . htmlentities($this->model->leafPath) . '" ' .
-                'leaf-name="' . htmlentities($this->model->leafName) . '"' .
-                $this->model->getHtmlAttributes() . $this->model->getClassAttribute() . '>' .
-            '<input type="hidden" name="' . htmlentities($this->model->leafPath) . '" value="' . htmlentities($this->model->value) . '">' .
-            htmlentities($this->model->value) .
-            '</span>';
+            default:
+                print '<span id="' . htmlentities($this->model->leafPath) . '" ' .
+                    'leaf-name="' . htmlentities($this->model->leafName) . '"' .
+                    $this->model->getHtmlAttributes() . $this->model->getClassAttribute() . '>' .
+                    '<input type="hidden" name="' . htmlentities($this->model->leafPath) . '" value="' . $this->getFormattedValue() . '">' .
+                    $this->getFormattedValue() .
+                    '</span>';
+        }
     }
 
-    protected function getClientSideViewBridgeName()
+    protected function getFormattedValue()
+    {
+        $value = $this->model->value;
+
+        if ($value instanceof \DateTime) {
+            $value = $value->format('d/m/Y');
+        }
+
+        return htmlentities($value);
+    }
+
+    protected function getViewBridgeName()
     {
         return "PikadayViewBridge";
     }
