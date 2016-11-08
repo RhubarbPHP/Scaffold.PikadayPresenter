@@ -1,6 +1,6 @@
 <?php
 
-namespace Rhubarb\PikadayPresenter;
+namespace Rhubarb\Pikaday;
 
 use Rhubarb\Leaf\Controls\Common\DateTime\Date;
 
