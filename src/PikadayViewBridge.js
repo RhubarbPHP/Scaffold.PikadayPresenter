@@ -25,6 +25,8 @@ pikadayBridge.prototype.attachEvents = function () {
         }
     }
 
+    this.oldValue = this.getValue();
+
     var options = {format: this.dateFormat};
 
     switch (this.model.mode) {
@@ -48,6 +50,14 @@ pikadayBridge.prototype.attachEvents = function () {
     }
 
     this.picker = new Pikaday(options);
+};
+
+pikadayBridge.prototype.valueChanged = function () {
+    if (this.oldValue != this.getValue()) {
+        // Only trigger events if the date has actually changed
+        window.rhubarb.viewBridgeClasses.ViewBridge.prototype.valueChanged.apply(this);
+        this.oldValue = this.getValue();
+    }
 };
 
 pikadayBridge.prototype.getValue = function () {
