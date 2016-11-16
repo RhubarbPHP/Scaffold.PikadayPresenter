@@ -27,7 +27,7 @@ pikadayBridge.prototype.attachEvents = function () {
 
     this.oldValue = this.getValue();
 
-    var options = {format: this.dateFormat};
+    var options = {format: this.dateFormat, theme: this.model.pickerCssClassName};
 
     switch (this.model.mode) {
         case this.modes.label:

@@ -31,6 +31,11 @@ class Pikaday extends Date
         $this->model->useDefaultCss = false;
     }
 
+    public function setPickerCssClassName($pickerCssClassName)
+    {
+        $this->model->pickerCssClassName = $pickerCssClassName;
+    }
+
     /**
      * @param int $mode One of the PikadayModel::MODE_* constants
      */

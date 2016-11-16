@@ -14,10 +14,13 @@ class PikadayModel extends ControlModel
 
     public $useDefaultCss = true;
 
+    public $pickerCssClassName;
+
     protected function getExposableModelProperties()
     {
         $properties = parent::getExposableModelProperties();
         $properties[] = 'mode';
+        $properties[] = 'pickerCssClassName';
         return $properties;
     }
 }
