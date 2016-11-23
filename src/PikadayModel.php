@@ -16,6 +16,10 @@ class PikadayModel extends ControlModel
 
     public $pickerCssClassName;
 
+    public $inputType;
+
+    public $dateFormat;
+
     protected function getExposableModelProperties()
     {
         $properties = parent::getExposableModelProperties();
