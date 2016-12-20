@@ -20,11 +20,14 @@ class PikadayModel extends ControlModel
 
     public $dateFormat;
 
+    public $disablePast = false;
+
     protected function getExposableModelProperties()
     {
         $properties = parent::getExposableModelProperties();
         $properties[] = 'mode';
         $properties[] = 'pickerCssClassName';
+        $properties[] = 'disablePast';
         return $properties;
     }
 }

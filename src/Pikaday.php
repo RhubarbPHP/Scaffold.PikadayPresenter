@@ -42,6 +42,17 @@ class Pikaday extends Control
     }
 
     /**
+     * Set to true if you do not want days in the past to be selectable
+     *
+     * Default is false
+     * @param $disablePast
+     */
+    public function setDisablePast($disablePast)
+    {
+        $this->model->disablePast = $disablePast;
+    }
+
+    /**
      * @param int $mode One of the PikadayModel::MODE_* constants
      */
     protected function setMode($mode)

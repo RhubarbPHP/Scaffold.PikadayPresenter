@@ -27,7 +27,16 @@ pikadayBridge.prototype.attachEvents = function () {
 
     this.oldValue = this.getValue();
 
-    var options = {format: this.dateFormat, theme: this.model.pickerCssClassName};
+    var daysSinceEpoch = (new Date()).getTime() / 8.64e7;
+    var options = {
+        format: this.dateFormat,
+        theme: this.model.pickerCssClassName,
+        disableDayFn: function(date) {
+            if (self.model.disablePast) {
+                return date.getTime() / 8.64e7 < daysSinceEpoch - 1;
+            }
+        }
+    };
 
     switch (this.model.mode) {
         case this.modes.label:
