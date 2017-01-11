@@ -62,6 +62,9 @@ pikadayBridge.prototype.attachEvents = function () {
 };
 
 pikadayBridge.prototype.valueChanged = function () {
+    // Date Selected event will be called anytime a date is tapped, whether it's a new one or not
+    this.raiseClientEvent('DateSelected', this.getValue());
+
     if (this.oldValue != this.getValue()) {
         // Only trigger events if the date has actually changed
         window.rhubarb.viewBridgeClasses.ViewBridge.prototype.valueChanged.apply(this);
