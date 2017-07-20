@@ -38,6 +38,10 @@ pikadayBridge.prototype.attachEvents = function () {
         }
     };
 
+    if (self.model.disablePast) {
+        options.minDate = new Date();
+    }
+
     switch (this.model.mode) {
         case this.modes.label:
             options.field = this.viewNode;
