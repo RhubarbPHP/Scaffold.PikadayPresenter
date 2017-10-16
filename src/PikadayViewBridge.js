@@ -28,6 +28,9 @@ pikadayBridge.prototype.attachEvents = function () {
     this.oldValue = this.getValue();
 
     var daysSinceEpoch = (new Date()).getTime() / 8.64e7;
+    var monthColours = null;
+    var selectedMonth = null;
+    var selectedYear = null;
     var options = {
         format: this.dateFormat,
         theme: this.model.pickerCssClassName,
@@ -35,8 +38,36 @@ pikadayBridge.prototype.attachEvents = function () {
             if (self.model.disablePast) {
                 return date.getTime() / 8.64e7 < daysSinceEpoch - 1;
             }
+        },
+        onDraw:function(element) {
+            var days = element.el.querySelectorAll('td:not(.is-disabled):not(.is-empty)');
+
+            if (selectedMonth !== element.calendars[0].month + 1 || selectedYear !== element.calendars[0].year ) {
+                selectedMonth = element.calendars[0].month + 1;
+                selectedYear = element.calendars[0].year;
+
+                self.raiseServerEvent('getClassesForDays', element.calendars[0].month + 1, element.calendars[0].year, function(classes) {
+                    monthColours = classes;
+                    updateAvailableDays(days);
+                });
+            } else {
+                updateAvailableDays(days);
+            }
         }
     };
+
+    function updateAvailableDays(days)
+    {
+        for (var i = 0, end = days.length; i < end; i++) {
+            var day = days[i];
+            if (monthColours[day.getAttribute('data-day') - 1] instanceof Array) {
+                var toAddClasses = monthColours[day.getAttribute('data-day') - 1];
+                for (var j = 0, jEnd = toAddClasses.length; j < jEnd; j++) {
+                    day.classList.add(toAddClasses[j]);
+                }
+            }
+        }
+    }
 
     if (self.model.disablePast) {
         options.minDate = new Date();

@@ -2,6 +2,7 @@
 
 namespace Rhubarb\Pikaday;
 
+use Rhubarb\Crown\Events\Event;
 use Rhubarb\Leaf\Leaves\Controls\ControlModel;
 
 class PikadayModel extends ControlModel
@@ -21,6 +22,15 @@ class PikadayModel extends ControlModel
     public $dateFormat;
 
     public $disablePast = false;
+
+    public $getClassesForDaysEvent = null;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->getClassesForDaysEvent = new Event();
+    }
 
     protected function getExposableModelProperties()
     {
