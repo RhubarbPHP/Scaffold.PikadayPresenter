@@ -23,6 +23,8 @@ class PikadayModel extends ControlModel
 
     public $disablePast = false;
 
+    public $getClassesForDays = false;
+
     public $getClassesForDaysEvent = null;
 
     public function __construct()
@@ -38,6 +40,7 @@ class PikadayModel extends ControlModel
         $properties[] = 'mode';
         $properties[] = 'pickerCssClassName';
         $properties[] = 'disablePast';
+        $properties[] = 'getClassesForDays';
         return $properties;
     }
 }

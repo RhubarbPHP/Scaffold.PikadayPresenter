@@ -40,18 +40,20 @@ pikadayBridge.prototype.attachEvents = function () {
             }
         },
         onDraw:function(element) {
-            var days = element.el.querySelectorAll('td:not(.is-disabled):not(.is-empty)');
+            if (self.model.getClassesForDays) {
+                var days = element.el.querySelectorAll('td:not(.is-disabled):not(.is-empty)');
 
-            if (selectedMonth !== element.calendars[0].month + 1 || selectedYear !== element.calendars[0].year ) {
-                selectedMonth = element.calendars[0].month + 1;
-                selectedYear = element.calendars[0].year;
+                if (selectedMonth !== element.calendars[0].month + 1 || selectedYear !== element.calendars[0].year ) {
+                    selectedMonth = element.calendars[0].month + 1;
+                    selectedYear = element.calendars[0].year;
 
-                self.raiseServerEvent('getClassesForDays', element.calendars[0].month + 1, element.calendars[0].year, function(classes) {
-                    monthColours = classes;
+                    self.raiseServerEvent('getClassesForDays', element.calendars[0].month + 1, element.calendars[0].year, function(classes) {
+                        monthColours = classes;
+                        updateAvailableDays(days);
+                    });
+                } else {
                     updateAvailableDays(days);
-                });
-            } else {
-                updateAvailableDays(days);
+                }
             }
         }
     };

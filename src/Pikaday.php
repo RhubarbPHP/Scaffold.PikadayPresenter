@@ -14,6 +14,7 @@ class Pikaday extends Control
 {
     const DEFAULT_DATE_FORMAT = 'd/m/Y';
 
+    /** @var Event $getClassForDay */
     public $getClassForDay;
 
     /**
@@ -59,6 +60,20 @@ class Pikaday extends Control
     }
 
     /**
+     * Set to true if for each month, you want to add classes to each day
+     *
+     * You will also need to attach an event handler for $this->getClassForDay to feed it the correct days
+     *
+     * Javascript code will assume that each index in the returned array is a new day.
+     *
+     * @param bool $getClassesForDays
+     */
+    public function setGetClassesForDays($getClassesForDays = false)
+    {
+        $this->model->getClassesForDays = $getClassesForDays;
+    }
+
+    /**
      * @param int $mode One of the PikadayModel::MODE_* constants
      */
     protected function setMode($mode)
@@ -87,7 +102,7 @@ class Pikaday extends Control
             for ($i = 1; $i <= $daysInMonth; $i++) {
                 $classes = $this->getClassForDay->raise(RhubarbDate::createFromFormat('d/m/Y', "$i/$month/$year"));
                 if (!is_array($classes)) {
-                    $classes = ['is-available-day'];
+                    $classes = [];
                 }
                 $dayClasses[$i] = $classes;
             }
