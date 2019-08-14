@@ -59,7 +59,7 @@ class PikadayView extends ControlView
     {
         $package = new LeafDeploymentPackage();
 
-        $package->resourcesToDeploy[] = __DIR__ . '/../../../../components/moment/min/moment.min.js';
+        $package->resourcesToDeploy[] = __DIR__ . '/../../../moment/moment/min/moment.min.js';
         $package->resourcesToDeploy[] = __DIR__ . '/../../../rhubarbphp/pikaday/pikaday.js';
         $package->resourcesToDeploy[] = __DIR__ . '/PikadayViewBridge.js';
 
